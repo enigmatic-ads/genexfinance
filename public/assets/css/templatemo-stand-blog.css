@@ -269,6 +269,7 @@ header .navbar {
 
 .owl-banner .item {
 	position: relative;
+	padding: 0 6px;
 }
 
 .owl-banner .item .item-content {
