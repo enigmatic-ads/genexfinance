@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="assets/images/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2>Edit Blog</h2>
+    <form id="editBlogForm">
+      <input type="hidden" id="blogId" />
+
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input type="text" class="form-control" id="title" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="image" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="image" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="summary" class="form-label">Summary</label>
+        <textarea class="form-control" id="summary" rows="3" required></textarea>
+      </div>
+
+      <div class="mb-3">
+        <label for="content" class="form-label">Full Content</label>
+        <textarea class="form-control" id="content" rows="6" required></textarea>
+      </div>
+
+      <label for="category">Category</label>
+        <select id="category" class="form-control" required>
+          <option value="">Select Category</option>
+          <option value="Fashion">Fashion</option>
+          <option value="Lifestyle">Lifestyle</option>
+          <option value="Beauty & Makeup">Beauty & Makeup</option>
+        </select>
+
+      <div class="mb-3">
+        <label for="tags" class="form-label">Tags (comma-separated)</label>
+        <input type="text" class="form-control" id="tags" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="slug" class="form-label">URL Slug</label>
+        <input type="text" class="form-control" id="slug" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary">Save Changes</button>
+      <a href="admin-dashboard.html" class="btn btn-primary">Cancel</a>
+    </form>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const blogId = params.get('id');
+    let blog;
+
+    fetch('posts.json')
+      .then(res => res.json())
+      .then(posts => {
+        blog = posts.find(b => b.id == blogId);
+        if (!blog) {
+          alert('Blog not found.');
+          return;
+        }
+
+        document.getElementById('blogId').value = blog.id;
+        document.getElementById('title').value = blog.title;
+        document.getElementById('image').value = blog.image;
+        document.getElementById('summary').value = blog.summary;
+        document.getElementById('content').value = blog.content;
+        document.getElementById('category').value = blog.category || '';
+        document.getElementById('tags').value = blog.tags ? blog.tags.join(', ') : '';
+        document.getElementById('slug').value = blog.slug || '';
+      });
+
+    document.getElementById('editBlogForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const updatedBlog = {
+        id: parseInt(document.getElementById('blogId').value),
+        title: document.getElementById('title').value,
+        image: document.getElementById('image').value,
+        summary: document.getElementById('summary').value,
+        content: document.getElementById('content').value,
+        category: document.getElementById('category').value,
+        tags: document.getElementById('tags').value.split(',').map(tag => tag.trim()),
+        slug: document.getElementById('slug').value,
+        date: blog.date
+      };
+
+      fetch(`/api/blogs/${updatedBlog.id}`, {
+        method: 'PUT',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+         },
+        body: JSON.stringify(updatedBlog),
+        
+      })
+      .then(res => {
+        if (res.ok) {
+          alert('Blog updated successfully!');
+          window.location.href = 'admin-dashboard.html';
+        } else {
+          alert('Error updating blog.');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <link rel="icon" type="image/png" href="assets/images/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+  <title>GENEXFINANCE - Post Details</title>
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/fontawesome.css">
+  <link rel="stylesheet" href="assets/css/templatemo-stand-blog.css">
+  <link rel="stylesheet" href="assets/css/owl.css">
+</head>
+
+<body>
+  <div id="preloader">
+    <div class="jumper">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/"><h2>GENEXFINANCE<em>.</em></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li> 
+            <li class="nav-item"><a class="nav-link" href="about">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="blogs">All Posts</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <div class="heading-page header-text">
+    <section class="page-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-content">
+              <h2>Post Details</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="blog-posts grid-system">
+    <div class="container">
+      <div class="row">
+        <!-- Post Content -->
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row">
+              <div class="col-lg-12" id="post-container">
+                <!-- Post will be inserted here -->
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="sidebar-item search">
+                  <form id="search_form" name="gs" method="GET" action="#">
+                    <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on">
+                  </form>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="sidebar-item recent-posts">
+                  <div class="sidebar-heading">
+                    <h2>Recent Posts</h2>
+                  </div>
+                  <div class="content">
+                    <ul id="recent-posts-list">
+                      <!-- Recent posts will be inserted here -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="sidebar-item categories">
+                  <div class="sidebar-heading">
+                    <h2>Categories</h2>
+                  </div>
+                  <div class="content">
+                    <ul>
+                      <!-- Categories will be inserted here -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12">
+                <div class="sidebar-item tags">
+                  <div class="sidebar-heading">
+                    <h2>Tag Clouds</h2>
+                  </div>
+                  <div class="content">
+                    <ul>
+                      <!-- Tags will be inserted here -->
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- row -->
+          </div> <!-- sidebar -->
+        </div> <!-- col-lg-4 -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="social-icons">
+            <li><a href="https://www.facebook.com/profile.php?id=61559174052480">Facebook</a></li>
+              <li><a href="https://www.instagram.com/genexfinance/">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            <p>Copyright 2025 @ GENEXFINANCE| All rights reserved </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Additional Scripts -->
+  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/owl.js"></script>
+  <script src="assets/js/slick.js"></script>
+  <script src="assets/js/isotope.js"></script>
+  <script src="assets/js/accordions.js"></script>
+
+  <script>
+    // const params = new URLSearchParams(window.location.search);
+    // const postSlug = params.get('slug');
+    const path = window.location.pathname;
+    const postSlug = path.substring(1);
+
+    fetch('posts.json')
+      .then(response => response.json())
+      .then(posts => {
+        const post = posts.find(p => p.slug == postSlug);
+
+        if (!post) {
+          document.getElementById('post-container').innerHTML = '<p>Post not found.</p>';
+          return;
+        }
+
+        document.getElementById('post-container').innerHTML = `
+          <div class="blog-post">
+            <div class="blog-thumb">
+              <img src="${post.image}" alt="">
+            </div>
+            <div class="down-content">
+              <span>${post.category}</span>
+              <h4>${post.title}</h4>
+              <ul class="post-info">
+                <li>${post.date}</li>
+              </ul>
+              <p style="text-align: justify;">${post.content}</p>
+              <div class="post-options">
+                <div class="row">
+                  <div class="col-6">
+                    <ul class="post-tags">
+                      <li><i class="fa fa-tags"></i></li>
+                      ${post.tags.map(tag => `<li><a href="#">${tag}</a></li>`).join(',')}
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <ul class="post-share">
+                      <li><i class="fa fa-share-alt"></i></li>
+                      <li><a href="https://www.facebook.com/profile.php?id=61559163404256">Facebook</a>,</li>
+                      <li><a href="#"> Twitter</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // Insert recent posts
+        const recentPosts = posts
+          .sort((a, b) => new Date(b.date) - new Date(a.date))
+          .slice(0, 3);
+
+        document.getElementById('recent-posts-list').innerHTML = recentPosts.map(r => `
+          <li><a href="${r.slug}">
+            <h5>${r.title}</h5>
+            <span>${r.date}</span>
+          </a></li>
+        `).join('');
+
+        // Insert categories and tags into sidebar
+        const categoriesSet = new Set();
+        const tagsSet = new Set();
+
+        posts.forEach(post => {
+          if (post.category) categoriesSet.add(post.category);
+          if (Array.isArray(post.tags)) {
+            post.tags.forEach(tag => tagsSet.add(tag));
+          }
+        });
+
+        document.querySelector('.sidebar-item.categories .content ul').innerHTML =
+          Array.from(categoriesSet).sort().map(cat =>
+            `<li><a href="blogs?category=${encodeURIComponent(cat)}">- ${cat}</a></li>`).join('');
+
+        document.querySelector('.sidebar-item.tags .content ul').innerHTML =
+          Array.from(tagsSet).sort().map(tag =>
+            `<li><a href="#">${tag}</a></li>`).join('');
+      })
+      .catch(err => {
+        console.error('Error loading post:', err);
+        document.getElementById('post-container').innerHTML = '<p>Error loading post.</p>';
+      });
+  </script>
+
+</body>
+</html>

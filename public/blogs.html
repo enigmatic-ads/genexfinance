@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="assets/images/icon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet" />
+
+  <title>GENEXFINANCE Posts</title>
+
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/fontawesome.css" />
+  <link rel="stylesheet" href="assets/css/templatemo-stand-blog.css" />
+  <link rel="stylesheet" href="assets/css/owl.css" />
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="jumper"><div></div><div></div><div></div></div>
+  </div>
+
+  <!-- Header -->
+  <header class="">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/"><h2>GENEXFINANCE<em>.</em></h2></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="about">About Us</a></li>
+            <li class="nav-item active"><a class="nav-link" href="blogs">All Posts</a></li>
+            <li class="nav-item"><a class="nav-link" href="contact">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Banner -->
+  <div class="heading-page header-text">
+    <section class="page-heading">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="text-content">
+              <h2>All Categories Posts</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Blog Content -->
+  <section class="blog-posts grid-system">
+    <div class="container">
+      <div class="row">
+        <!-- Blog Posts Column -->
+        <div class="col-lg-8">
+          <div class="all-blog-posts">
+            <div class="row" id="all-blog-posts-grid"></div>
+          </div>
+          <div class="col-lg-12">
+            <ul class="page-numbers">
+              <li class="active"><a href="#">1</a></li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#"><i class="fa fa-angle-double-right"></i></a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="sidebar-item search">
+                  <form id="search_form" name="gs" method="GET" action="#">
+                    <input type="text" name="q" class="searchText" placeholder="type to search..." autocomplete="on" />
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="sidebar-item recent-posts">
+                  <div class="sidebar-heading">
+                    <h2>Recent Posts</h2>
+                  </div>
+                  <div class="content">
+                    <ul id="sidebar-recent-posts"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="sidebar-item categories">
+                  <div class="sidebar-heading">
+                    <h2>Categories</h2>
+                  </div>
+                  <div class="content">
+                    <ul id="category-list"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12">
+                <div class="sidebar-item tags">
+                  <div class="sidebar-heading">
+                    <h2>Tag Clouds</h2>
+                  </div>
+                  <div class="content">
+                    <ul id="tag-cloud"></ul>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- /.row inside sidebar -->
+          </div> <!-- /.sidebar -->
+        </div> <!-- /.col-lg-4 -->
+      </div> <!-- /.row -->
+    </div> <!-- /.container -->
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="social-icons">
+            <li><a href="https://www.facebook.com/profile.php?id=61559174052480">Facebook</a></li>
+              <li><a href="https://www.instagram.com/genexfinance/">Instagram</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-12">
+          <div class="copyright-text">
+            <p>Copyright 2025 @ GENEXFINANCE | All rights reserved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="vendor/jquery/jquery.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/custom.js"></script>
+  <script src="assets/js/owl.js"></script>
+  <script src="assets/js/slick.js"></script>
+  <script src="assets/js/isotope.js"></script>
+  <script src="assets/js/accordions.js"></script>
+
+  <script>
+  fetch('posts.json')
+    .then(response => response.json())
+    .then(posts => {
+      const gridContainer = document.getElementById('all-blog-posts-grid');
+      const sidebarList = document.getElementById('sidebar-recent-posts');
+      const categoryList = document.getElementById('category-list');
+      const tagCloud = document.getElementById('tag-cloud');
+      const paginationContainer = document.querySelector('.page-numbers');
+
+      posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const page = parseInt(urlParams.get('page') || '1');
+      const postsPerPage = 6;
+
+      let filteredPosts = posts;
+      const categoryName = urlParams.get('category');
+      if (categoryName) {
+        filteredPosts = posts.filter(post => post.category === categoryName);
+      }
+
+      const totalPages = Math.ceil(filteredPosts.length / postsPerPage);
+      const startIndex = (page - 1) * postsPerPage;
+      const endIndex = startIndex + postsPerPage;
+      const currentPosts = filteredPosts.slice(startIndex, endIndex);
+
+      // Render current posts
+      gridContainer.innerHTML = '';
+      currentPosts.forEach(post => {
+        const postEl = document.createElement('div');
+        postEl.className = 'col-lg-6';
+        postEl.innerHTML = `
+          <div class="blog-post">
+            <div class="blog-thumb"><img src="${post.image}" alt="${post.title}"></div>
+            <div class="down-content">
+              <span>${post.category}</span>
+              <a href="${encodeURIComponent(post.slug)}"><h4>${post.title}</h4></a>
+              <ul class="post-info"><li>${post.date}</li></ul>
+              <p>${post.summary}...<a href="${encodeURIComponent(post.slug)}">Read more</a></p>
+              <div class="post-options">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <ul class="post-tags">
+                      <li><i class="fa fa-tags"></i></li>
+                      ${post.tags.map(tag => `<li><a href="#">${tag}</a></li>`).join(', ')}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>`;
+        gridContainer.appendChild(postEl);
+      });
+
+      // Pagination logic
+      paginationContainer.innerHTML = '';
+      for (let i = 1; i <= totalPages; i++) {
+        const li = document.createElement('li');
+        li.className = (i === page) ? 'active' : '';
+        li.innerHTML = `<a href="?page=${i}${categoryName ? `&category=${encodeURIComponent(categoryName)}` : ''}">${i}</a>`;
+        paginationContainer.appendChild(li);
+      }
+
+      // Next arrow
+      if (page < totalPages) {
+        const nextLi = document.createElement('li');
+        nextLi.innerHTML = `<a href="?page=${page + 1}${categoryName ? `&category=${encodeURIComponent(categoryName)}` : ''}"><i class="fa fa-angle-double-right"></i></a>`;
+        paginationContainer.appendChild(nextLi);
+      }
+
+      // Sidebar recent posts (top 3)
+      posts.slice(0, 3).forEach(post => {
+        const sidebarItem = document.createElement('li');
+        sidebarItem.innerHTML = `
+          <a href="${encodeURIComponent(post.slug)}">
+            <h5>${post.title}</h5>
+            <span>${post.date}</span>
+          </a>`;
+        sidebarList.appendChild(sidebarItem);
+      });
+
+      // Unique Categories
+      const categories = [...new Set(posts.map(p => p.category))];
+      categories.forEach(category => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="blogs?category=${encodeURIComponent(category)}">- ${category}</a>`;
+        categoryList.appendChild(li);
+      });
+
+      // Unique Tags
+      const tags = [...new Set(posts.flatMap(post => post.tags))];
+      tags.forEach(tag => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="#">${tag}</a>`;
+        tagCloud.appendChild(li);
+      });
+    })
+    .catch(error => console.error('Error loading posts:', error));
+</script>
+
+</body>
+</html>
