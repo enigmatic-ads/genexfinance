@@ -218,6 +218,18 @@ app.get('/api/verify-token', checkAuth, (req, res) => {
   res.sendStatus(200);
 });
 
+app.get('/blogs/page/:pageNum', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'blogs.html'));
+});
+
+app.get('/blogs/category/:categorySlug', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'blogs.html'));
+});
+
+app.get('/blogs/category/:categorySlug/page/:pageNum', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'blogs.html'));
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on Port ${PORT}`);
 });
