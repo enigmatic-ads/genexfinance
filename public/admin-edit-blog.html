@@ -29,21 +29,29 @@
       </div>
 
       <div class="mb-3">
-        <label for="content" class="form-label">Full Content</label>
-        <textarea class="form-control" id="content" rows="6" required></textarea>
+        <label for="content" class="form-label">Content</label>
+        <!-- TinyMCE Editor -->
+        <textarea id="editor"></textarea>
       </div>
 
-      <label for="category">Category</label>
-        <select id="category" class="form-control" required>
-          <option value="">Select Category</option>
-          <option value="Fashion">Fashion</option>
-          <option value="Lifestyle">Lifestyle</option>
-          <option value="Beauty & Makeup">Beauty & Makeup</option>
-        </select>
-
       <div class="mb-3">
-        <label for="tags" class="form-label">Tags (comma-separated)</label>
-        <input type="text" class="form-control" id="tags" required />
+        <label class="form-label">Categories</label><br />
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Science & Technology" id="cat1">
+          <label class="form-check-label" for="cat1">Science & Technology</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="History & Culture" id="cat2">
+          <label class="form-check-label" for="cat2">History & Culture</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Bizarre & Unexplained" id="cat3">
+          <label class="form-check-label" for="cat3">Bizarre & Unexplained</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Human Psychology" id="cat4">
+          <label class="form-check-label" for="cat4">Human Psychology</label>
+        </div>
       </div>
 
       <div class="mb-3">
@@ -52,9 +60,30 @@
       </div>
 
       <button type="submit" class="btn btn-primary">Save Changes</button>
-      <a href="admin-dashboard.html" class="btn btn-primary">Cancel</a>
+      <a href="admin-dashboard.html" class="btn btn-secondary">Cancel</a>
     </form>
   </div>
+
+  <!-- TinyMCE -->
+   <script src="https://cdn.tiny.cloud/1/0cs91s6vtnabifnqn7entz26k8icrwh6ke0ucut7a9r75n9h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+  <script>
+    let blogContent = '';
+    
+    tinymce.init({
+      selector: '#editor',
+      plugins: 'link lists',
+      toolbar: 'bold italic underline bullist numlist link',
+      menubar: false,
+      height: 300,
+      setup: function (editor) {
+        editor.on('init', function () {
+          if (blogContent) {
+            editor.setContent(blogContent);
+          }
+        });
+  }
+    });
+  </script>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -74,44 +103,55 @@
         document.getElementById('title').value = blog.title;
         document.getElementById('image').value = blog.image;
         document.getElementById('summary').value = blog.summary;
-        document.getElementById('content').value = blog.content;
-        document.getElementById('category').value = blog.category || '';
-        document.getElementById('tags').value = blog.tags ? blog.tags.join(', ') : '';
         document.getElementById('slug').value = blog.slug || '';
+
+        const selectedCategories = blog.categories || [];
+        document.querySelectorAll('.category-checkbox').forEach(cb => {
+          if (selectedCategories.includes(cb.value)) cb.checked = true;
+        });
+
+        blogContent = blog.content || '';
       });
 
-    document.getElementById('editBlogForm').addEventListener('submit', function (e) {
+    document.getElementById('editBlogForm').addEventListener('submit', async function (e) {
       e.preventDefault();
+
+      const selectedCategories = Array.from(document.querySelectorAll('.category-checkbox:checked'))
+                                      .map(cb => cb.value);
+
+      let content = tinymce.get('editor').getContent();
+      content = content
+        .replace(/<p[^>]*>/gi, '')
+        .replace(/<\/p>/gi, '<br>')
+        .replace(/<span[^>]*>/gi, '')
+        .replace(/<\/span>/gi, '');
 
       const updatedBlog = {
         id: parseInt(document.getElementById('blogId').value),
         title: document.getElementById('title').value,
         image: document.getElementById('image').value,
         summary: document.getElementById('summary').value,
-        content: document.getElementById('content').value,
-        category: document.getElementById('category').value,
-        tags: document.getElementById('tags').value.split(',').map(tag => tag.trim()),
+        content,
+        categories: selectedCategories,
         slug: document.getElementById('slug').value,
         date: blog.date
       };
 
-      fetch(`/api/blogs/${updatedBlog.id}`, {
+      const response = await fetch(`/api/blogs/${updatedBlog.id}`, {
         method: 'PUT',
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('token')}`
-         },
+        },
         body: JSON.stringify(updatedBlog),
-        
-      })
-      .then(res => {
-        if (res.ok) {
-          alert('Blog updated successfully!');
-          window.location.href = 'admin-dashboard.html';
-        } else {
-          alert('Error updating blog.');
-        }
       });
+
+      if (response.ok) {
+        alert('Blog updated successfully!');
+        window.location.href = 'admin-dashboard.html';
+      } else {
+        alert('Error updating blog.');
+      }
     });
   </script>
 </body>

@@ -5,63 +5,59 @@
   <link rel="icon" type="image/png" href="assets/images/icon.png">
   <title>Add New Blog</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  
-  <!-- Quill CSS -->
-  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
+  <!-- TinyMCE -->
+   <script src="https://cdn.tiny.cloud/1/0cs91s6vtnabifnqn7entz26k8icrwh6ke0ucut7a9r75n9h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
+
 
   <style>
     body { padding: 2rem; }
     textarea { resize: vertical; }
-    #editor {
-      height: 300px;
-      background: white;
-    }
   </style>
 </head>
 <body>
-    <script>
+  <script>
     async function verifyAuth() {
       const token = localStorage.getItem('token');
       if (!token) {
-        window.location.href = 'index.html';
+        window.location.href = '/';
         return;
       }
 
       try {
         const response = await fetch('/api/verify-token', {
           method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
+          headers: { 'Authorization': `Bearer ${token}` }
         });
 
         if (!response.ok) {
           localStorage.removeItem('token');
-          window.location.href = 'index.html';
+          window.location.href = '/';
         }
       } catch (err) {
         console.error('Token verification failed:', err);
         localStorage.removeItem('token');
-        window.location.href = 'index.html';
+        window.location.href = '/';
       }
     }
 
     verifyAuth();
   </script>
+
   <div class="mr-4">
     <a href="admin-dashboard.html" class="btn btn-primary">Back</a>
   </div>
 
   <div class="container">
     <h2>Add New Blog</h2>
-    <form id="blogForm">
+    <form id="blogForm" enctype="multipart/form-data">
       <div class="form-group">
         <label for="title">Title</label>
         <input id="title" class="form-control" required />
       </div>
       <div class="form-group">
-        <label for="image">Image URL</label>
-        <input id="image" class="form-control" required />
+        <label for="image">Upload Image</label>
+        <input id="image" type="file" class="form-control" accept="image/*" required />
       </div>
       <div class="form-group">
         <label for="summary">Summary</label>
@@ -69,21 +65,26 @@
       </div>
       <div class="form-group">
         <label for="content">Content</label>
-        <!-- Quill editor here -->
-        <div id="editor"></div>
+        <textarea id="editor"></textarea>
       </div>
       <div class="form-group">
-        <label for="category">Category</label>
-        <select id="category" class="form-control" required>
-          <option value="">Select Category</option>
-          <option value="Fashion">Fashion</option>
-          <option value="Lifestyle">Lifestyle</option>
-          <option value="Beauty & Makeup">Beauty & Makeup</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="tags">Tags (comma-separated)</label>
-        <input id="tags" class="form-control" />
+        <label>Categories</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Science & Technology" id="cat1">
+          <label class="form-check-label" for="cat1">Science & Technology</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="History & Culture" id="cat2">
+          <label class="form-check-label" for="cat2">History & Culture</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Bizarre & Unexplained" id="cat3">
+          <label class="form-check-label" for="cat3">Bizarre & Unexplained</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input category-checkbox" type="checkbox" value="Human Psychology" id="cat4">
+          <label class="form-check-label" for="cat4">Human Psychology</label>
+        </div>
       </div>
       <button type="submit" class="btn btn-primary">Add Blog</button>
       <a href="admin-dashboard.html" class="btn btn-primary">Cancel</a>
@@ -91,20 +92,20 @@
     <div id="message" class="mt-3"></div>
   </div>
 
-  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-
   <script>
-    // Initialize Quill editor
-    var quill = new Quill('#editor', {
-      theme: 'snow',
+    //Initialize TinyMCE
+    tinymce.init({
+      selector: '#editor',
+      height: 300,
+      menubar: false,
+      plugins: 'link image code lists',
+      toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link code',
       placeholder: 'Write your blog content here...',
-      modules: {
-        toolbar: [
-          ['bold', 'italic', 'underline'],
-          [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-          ['link'],
-          ['clean']
-        ]
+      setup: function (editor) {
+        editor.on('GetContent', function (e) {
+          // Strip out data-* attributes right before content is retrieved
+          e.content = e.content.replace(/\sdata-[a-z-]+="[^"]*"/g, '');
+        });
       }
     });
 
@@ -113,26 +114,31 @@
       e.preventDefault();
 
       const title = document.getElementById("title").value;
-      const image = document.getElementById("image").value;
       const summary = document.getElementById("summary").value;
-      const content = quill.root.innerHTML
-        .replace(/<p>/g, '')
-        .replace(/<\/p>/g, '<br>')
-        .replace(/<h[1-6]>/g, '')
-        .replace(/<\/h[1-6]>/g, '')
-        .replace(/<p class="ql-align-justify">/g, '');
-      const category = document.getElementById("category").value;
-      const tags = document.getElementById("tags").value.split(",").map(t => t.trim());
+      let content = tinymce.get('editor').getContent();
+      content = content
+        .replace(/<p[^>]*>/gi, '')
+        .replace(/<\/p>/gi, '<br>')
+        .replace(/<span[^>]*>/gi, '')
+        .replace(/<\/span>/gi, '');
 
-      const postData = { title, image, summary, content, category, tags };
+      const imageFile = document.getElementById("image").files[0];
+      const categories = Array.from(document.querySelectorAll('.category-checkbox:checked'))
+                              .map(cb => cb.value);
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("summary", summary);
+      formData.append("content", content);
+      formData.append("image", imageFile);
+      formData.append("categories", JSON.stringify(categories));
 
       const response = await fetch("/add-post", {
         method: "POST",
-        headers: { 
-          "Content-Type": "application/json",
+        headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
-        body: JSON.stringify(postData)
+        body: formData
       });
 
       const result = await response.json();
