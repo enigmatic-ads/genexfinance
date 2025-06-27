@@ -278,9 +278,6 @@
           posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
           posts.slice(0, 4).forEach(post => {
-            allCategories.add(post.category);
-            post.tags.forEach(tag => allTags.add(tag));
-
             const tagsHTML = post.tags.map(tag => `<li><a href="#">${tag}</a></li>`).join(', ');
 
             const blogCard = document.createElement('div');
@@ -337,6 +334,15 @@
               .trim()
               .replace(/\s+/g, '-');
           }
+
+          posts.forEach(post => {
+            if (post.category) {
+              allCategories.add(post.category);
+            }
+            if (Array.isArray(post.tags)) {
+              post.tags.forEach(tag => allTags.add(tag));
+            }
+          });
 
           // Populate unique categories
           Array.from(allCategories).forEach(category => {
