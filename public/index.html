@@ -292,7 +292,7 @@
 
           posts.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-          posts.slice(0, 4).forEach(post => {
+          posts.slice(0, 9).forEach(post => {
             const tagsHTML = post.tags.map(tag => `<li><a href="#">${tag}</a></li>`).join(', ');
 
             const blogCard = document.createElement('div');
