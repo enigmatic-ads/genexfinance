@@ -290,6 +290,15 @@
       </div>
     </div>
 
+    <div class="container older-posts-section">
+    <div class="row">
+      <div class="col-lg-10">
+      <h2 class="mb-4">In Focus</h2>
+      <div id="older-posts-list"></div>
+      </div>
+    </div>
+    </div>
+
     <footer>
       <div class="container">
         <div class="row">
@@ -391,6 +400,27 @@
               </div>
             `;
             mostPopularContainer.appendChild(storyDiv);
+          });
+
+          const olderPostsIds = [15,16,17,18,19];
+
+          const olderPostsContainer = document.getElementById('older-posts-list');
+          const olderPosts = posts.filter(p => olderPostsIds.includes(p.id) || olderPostsIds.includes(+p.id));
+
+          olderPosts.forEach(post => {
+            const html = `
+              <div class="older-post d-flex mb-4">
+                <div class="older-post-img">
+                  <a href="post-details.html?id=${post.id}">
+                    <img src="${post.image}" alt="${post.title}">
+                  </a>
+                </div>
+                <div class="older-post-text d-flex align-items-center px-3">
+                  <h5 class="m-0"><a href="${encodeURIComponent(post.slug)}">${post.title}</a></h5>
+                </div>
+              </div>
+            `;
+            olderPostsContainer.innerHTML += html;
           });
 
           posts.slice(0, 5).forEach(post => {
