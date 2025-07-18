@@ -437,6 +437,22 @@ header .navbar {
 	transform: scale(1.1);
   }
 
+/* Most Popular */
+
+.most-popular-section {
+  margin-top: 100px;
+  /* background-color: #aaaaaa; */
+  background-color: #dedede;
+  padding-top: 70px;
+  padding-bottom: 50px;
+
+}
+
+.most-popular-section .section-heading h2 {
+	margin-bottom: 30px;
+	font-weight: bold;
+}
+
 
 /* Blog Posts */
 
@@ -833,6 +849,55 @@ ul.page-numbers li a:hover {
 	background-color: #dd3333;
 	border-color: #dd3333;
 	color: #fff;
+}
+
+/* Trending Categories */
+
+.trending-section {
+  /* margin-top: 100px; */
+  background-color: #F0F2F5;
+  padding-top: 120px;
+  padding-bottom: 120px;
+}
+
+.trending-section h3 {
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.trending-section .image-grid {
+  margin-left: 30px;
+}
+
+.trend-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 200px;
+  border-radius: 8px;
+}
+
+.trend-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.trend-card:hover img {
+  transform: scale(1.05);
+}
+
+.trend-caption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  text-align: center;
+  padding: 6px 0;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 

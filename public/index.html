@@ -244,6 +244,52 @@
     </section>
     <!-- Blog Posts Ends Here -->
 
+    <section class="most-popular-section">
+    <div class="container">
+      <div class="row">
+          <div class="col-lg-12">
+            <div class="section-heading">
+              <h2>Most Popular</h2>
+              <div id="most-popular" class="row mb-4"></div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </section>
+
+    <div class="container-fluid trending-section">
+      <div class="container">
+        <h3 class="fw-bold">Trending Topics</h3>
+        <div class="row g-3 image-grid">
+          <!-- Category Item -->
+          <div class="col-3">
+            <a href="blogs/category/investment" class="trend-card">
+              <img src="assets/images/banner_02.png" alt="Investment">
+              <div class="trend-caption">Investment</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="blogs/category/financial-planning" class="trend-card">
+              <img src="assets/images/banner_01.jpg" alt="Financial Planning">
+              <div class="trend-caption">Financial Planning</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="blogs/category/insurance" class="trend-card">
+              <img src="assets/images/banner_04.jpg" alt="Insurance">
+              <div class="trend-caption">Insurance</div>
+            </a>
+          </div>
+          <div class="col-3">
+            <a href="blogs/category/banking" class="trend-card">
+              <img src="assets/images/banner_03.png" alt="Banking">
+              <div class="trend-caption">Banking</div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <footer>
       <div class="container">
         <div class="row">
@@ -324,6 +370,27 @@
               </div>
             `;
             topStoriesContainer.appendChild(storyDiv);
+          });
+
+          const mostPopularPosts = [22, 18, 15, 20];
+
+          const mostPopularContainer = document.getElementById('most-popular');
+
+          mostPopularPosts.forEach(id => {
+            const post = posts.find(p => p.id == id);
+            if (!post) return;
+
+            const storyDiv = document.createElement('div');
+            storyDiv.className = 'col-md-6'; // 2 per row on large screens
+            storyDiv.innerHTML = `
+              <div class="top-story">
+                <a href="${encodeURIComponent(post.slug)}">
+                  <img src="${post.image}" alt="${post.title}">
+                  <div class="top-story-title">${post.title}</div>
+                </a>
+              </div>
+            `;
+            mostPopularContainer.appendChild(storyDiv);
           });
 
           posts.slice(0, 5).forEach(post => {
