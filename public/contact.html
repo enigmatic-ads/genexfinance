@@ -104,7 +104,7 @@
                       <h2>Send us a message</h2>
                     </div>
                     <div class="content">
-                      <form id="contact" action="" method="post">
+                      <form id="contact">
                         <div class="row">
                           <div class="col-md-6 col-sm-12">
                             <fieldset>
@@ -128,7 +128,7 @@
                           </div>
                           <div class="col-lg-12">
                             <fieldset>
-                              <button type="submit" id="form-submit" class="main-button"><a href="#">Send Message</a></button>
+                              <button type="submit" id="form-submit" class="main-button">Send Message</button>
                             </fieldset>
                           </div>
                         </div>
@@ -203,7 +203,7 @@
       }
     </script>
 
-    <script>
+    <!-- <script>
       document.getElementById('form-submit').addEventListener('click', function (e) {
         e.preventDefault();
 
@@ -216,6 +216,35 @@
         const mailtoLink = `mailto:adan.khan8@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
         
         window.location.href = mailtoLink;
+      });
+    </script> -->
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init({
+          publicKey: "cFVvuA1nxrRjHjVTr",
+        });
+      })();
+    </script>
+
+    <script>
+      document.getElementById('contact').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        emailjs.send("service_46d704t", "template_rpq1uq5", {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value,
+          platform: 'GenexFinance'
+        }).then(function(response) {
+          alert("Message sent successfully!");
+        }, function(error) {
+          alert("Failed to send message. Please try again.");
+          console.error(error);
+        });
       });
     </script>
 
