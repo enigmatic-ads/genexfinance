@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const PORT = 5000;
+const PORT = 4000;
 
 // Path to posts.json
 const POSTS_FILE = path.join(__dirname, 'public', 'posts.json');
