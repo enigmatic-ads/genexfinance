@@ -461,9 +461,6 @@
               <div class="down-content">
                 <span>${post.category}</span>
                 <a href="${encodeURIComponent(post.slug)}"><h4>${post.title}</h4></a>
-                <ul class="post-info">
-                  <li>${post.date}</li>
-                </ul>
                 <p>${post.summary}...<a href="${encodeURIComponent(post.slug)}">Read more</a></p>
                 <div class="post-options">
                   <div class="row">
@@ -492,7 +489,6 @@
             sidebarItem.innerHTML = `
             <a href="${encodeURIComponent(post.slug)}">
               <h5>${post.title}</h5>
-              <span>${post.date}</span>
             </a>`;
             sidebarList.appendChild(sidebarItem);
           });
