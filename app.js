@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const app = xpress();
+const app = express();
 const PORT = 5000;
 
 // Path to posts.json
