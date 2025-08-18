@@ -236,14 +236,21 @@
             </div>
             <div class="down-content">
               <span>${post.category}</span>
-              <h4>${post.title}</h4>
-              <p style="text-align: justify;">${post.content}</p>
+              <h1>${post.title}</h1><br>
+              <div style="text-align: justify;">${post.content}</div>
               <div class="post-options">
                 <div class="row">
                   <div class="col-6">
                     <ul class="post-tags">
                       <li><i class="fa fa-tags"></i></li>
                       ${post.tags.map(tag => `<li><a href="#">${tag}</a></li>`).join(',')}
+                    </ul>
+                  </div>
+                  <div class="col-6">
+                    <ul class="post-share">
+                      <li><i class="fa fa-share-alt"></i></li>
+                      <li><a href="#">Facebook</a>,</li>
+                      <li><a href="#"> Twitter</a></li>
                     </ul>
                   </div>
                 </div>

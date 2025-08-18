@@ -5,10 +5,9 @@
   <link rel="icon" type="image/png" href="assets/images/icon.png">
   <title>Add New Blog</title>
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-
+  
   <!-- TinyMCE -->
    <script src="https://cdn.tiny.cloud/1/0cs91s6vtnabifnqn7entz26k8icrwh6ke0ucut7a9r75n9h/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
-
 
   <style>
     body { padding: 2rem; }
@@ -16,7 +15,7 @@
   </style>
 </head>
 <body>
-  <script>
+    <script>
     async function verifyAuth() {
       const token = localStorage.getItem('token');
       if (!token) {
@@ -43,7 +42,6 @@
 
     verifyAuth();
   </script>
-
   <div class="mr-4">
     <a href="admin-dashboard.html" class="btn btn-primary">Back</a>
   </div>
@@ -70,20 +68,20 @@
       <div class="form-group">
         <label>Categories</label><br>
         <div class="form-check form-check-inline">
-          <input class="form-check-input category-checkbox" type="checkbox" value="Science & Technology" id="cat1">
-          <label class="form-check-label" for="cat1">Science & Technology</label>
+            <input class="form-check-input category-checkbox" type="checkbox" value="Investment" id="cat1">
+            <label class="form-check-label" for="cat1">Investment</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input category-checkbox" type="checkbox" value="History & Culture" id="cat2">
-          <label class="form-check-label" for="cat2">History & Culture</label>
+            <input class="form-check-input category-checkbox" type="checkbox" value="Financial Planning" id="cat2">
+            <label class="form-check-label" for="cat2">Financial Planning</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input category-checkbox" type="checkbox" value="Bizarre & Unexplained" id="cat3">
-          <label class="form-check-label" for="cat3">Bizarre & Unexplained</label>
+            <input class="form-check-input category-checkbox" type="checkbox" value="Banking" id="cat3">
+            <label class="form-check-label" for="cat3">Banking</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input category-checkbox" type="checkbox" value="Human Psychology" id="cat4">
-          <label class="form-check-label" for="cat4">Human Psychology</label>
+            <input class="form-check-input category-checkbox" type="checkbox" value="Insurance" id="cat4">
+            <label class="form-check-label" for="cat4">Insurance</label>
         </div>
       </div>
       <button type="submit" class="btn btn-primary">Add Blog</button>
@@ -96,7 +94,7 @@
     //Initialize TinyMCE
     tinymce.init({
       selector: '#editor',
-      height: 300,
+      height: 800,
       menubar: false,
       plugins: 'link image code lists',
       toolbar: 'undo redo | styleselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link code',
@@ -118,20 +116,21 @@
       let content = tinymce.get('editor').getContent();
       content = content
         .replace(/<p[^>]*>/gi, '')
-        .replace(/<\/p>/gi, '<br>')
+        .replace(/<\/p>/gi, '<br><br>')
         .replace(/<span[^>]*>/gi, '')
-        .replace(/<\/span>/gi, '');
+        .replace(/<\/span>/gi, '')
+        .replace(/<\/h[1-6]>/gi, '$&<br>')
+        .replace(/<\/(ul|ol)>(?!<br>)/gi, '</$1><br>');
 
       const imageFile = document.getElementById("image").files[0];
-      const categories = Array.from(document.querySelectorAll('.category-checkbox:checked'))
-                              .map(cb => cb.value);
+      const selectedCategory = document.querySelector('.category-checkbox:checked')?.value || '';
 
       const formData = new FormData();
       formData.append("title", title);
       formData.append("summary", summary);
       formData.append("content", content);
       formData.append("image", imageFile);
-      formData.append("categories", JSON.stringify(categories));
+      formData.append("category", selectedCategory);
 
       const response = await fetch("/add-post", {
         method: "POST",
@@ -148,6 +147,16 @@
       } else {
         alert("Failed to save post.");
       }
+    });
+
+    document.querySelectorAll('.category-checkbox').forEach(cb => {
+      cb.addEventListener('change', function () {
+        if (this.checked) {
+          document.querySelectorAll('.category-checkbox').forEach(other => {
+            if (other !== this) other.checked = false; // Uncheck others
+          });
+        }
+      });
     });
   </script>
 </body>

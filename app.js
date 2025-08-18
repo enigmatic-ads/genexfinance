@@ -5,6 +5,7 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 
 const app = express();
 const PORT = 5000;
@@ -25,6 +26,20 @@ app.use((req, res, next) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
+
+//Configure multer for image uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/assets/images');
+  },
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const imageFileName = 'post' + req.postId + ext;
+    cb(null, imageFileName);
+  }
+});
+
+const upload = multer({ storage });
 
 // Serve index.html on root path
 app.get('/', (req, res) => {
@@ -53,28 +68,59 @@ app.get('/posts', (req, res) => {
   }
 });
 
+function slugify(text) {
+  return text
+    .toString()
+    .toLowerCase()
+    .trim() 
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-');
+}
+
 // Add a new blog post
-app.post('/add-post', checkAuth, (req, res) => {
+app.post('/add-post', generatePostId, upload.single('image'),(req, res) => {
   try {
-    const data = fs.readFileSync(POSTS_FILE, 'utf-8');
-    const posts = JSON.parse(data);
     const slug = slugify(req.body.title);
+    const categorySlug = slugify(req.body.category);
     const newPost = {
-      id: (parseInt(posts[posts.length - 1]?.id || '0') + 1).toString(), 
+      id: req.postId,
       date: new Date().toLocaleDateString('en-US', {
         year: 'numeric', month: 'long', day: 'numeric'
-      }), 
-      ...req.body,
+      }),
+      title: req.body.title,
+      summary: req.body.summary,
+      content: req.body.content,
+      category: req.body.category,
+      image: 'assets/images/' + req.file.filename,
       slug,
+      categorySlug,
+      comments: []
     };
+
+    const data = fs.readFileSync(POSTS_FILE, 'utf-8');
+    const posts = JSON.parse(data);
 
     posts.push(newPost);
     fs.writeFileSync(POSTS_FILE, JSON.stringify(posts, null, 2));
     res.json({ status: 'success', id: newPost.id });
   } catch (err) {
+    console.error(err);
     res.status(500).json({ error: 'Failed to save post.' });
   }
 });
+
+function generatePostId(req, res, next) {
+  try {
+    const data = fs.readFileSync(POSTS_FILE, 'utf-8');
+    const posts = JSON.parse(data);
+    const postId = (parseInt(posts[posts.length - 1]?.id || '0') + 1);
+    req.postId = postId;
+    next();
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to generate post ID' });
+  }
+}
 
 function slugify(text) {
   return text

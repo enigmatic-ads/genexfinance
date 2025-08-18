@@ -511,6 +511,31 @@ header .navbar {
 	margin: 10px 0px 12px 0px;
 }
 
+.blog-posts .down-content h1 {
+	font-size: 30px;
+	font-weight: 700;
+}
+
+.blog-posts .down-content h2 {
+	font-size: 26px;
+	font-weight: 700;
+}
+
+.blog-posts .down-content h3 {
+	font-size: 22px;
+	font-weight: 600;
+}
+
+.blog-posts .down-content h4 {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.blog-posts .down-content img {
+	width: 100%;
+	height: auto;
+}
+
 .blog-posts .down-content ul.post-info li {
 	display: inline-block;
 	margin-right: 8px;
