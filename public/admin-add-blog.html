@@ -120,7 +120,8 @@
         .replace(/<span[^>]*>/gi, '')
         .replace(/<\/span>/gi, '')
         .replace(/<\/h[1-6]>/gi, '$&<br>')
-        .replace(/<\/(ul|ol)>(?!<br>)/gi, '</$1><br>');
+        .replace(/<\/(ul|ol)>(?!<br>)/gi, '</$1><br>')
+        .replace(/<hr>/gi, '');
 
       const imageFile = document.getElementById("image").files[0];
       const selectedCategory = document.querySelector('.category-checkbox:checked')?.value || '';

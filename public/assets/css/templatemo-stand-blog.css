@@ -536,6 +536,11 @@ header .navbar {
 	height: auto;
 }
 
+.blog-posts .down-content ul {
+	list-style: disc;
+	margin-left: 35px;
+}
+
 .blog-posts .down-content ul.post-info li {
 	display: inline-block;
 	margin-right: 8px;
