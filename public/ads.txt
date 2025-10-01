@@ -1,6 +1,7 @@
 OWNERDOMAIN=genexfinance.com
 MANAGERDOMAIN=exmarketplace.com
 
+google.com, pub-1200789092270135, DIRECT, f08c47fec0942fa0
 exmarketplace.com, 5171, DIRECT, 5b021513f53460f2
 outbrain.com, 00e05f941a30b54546c88149cabc900f2f, DIRECT #OB
 appnexus.com, 7597, RESELLER, f5ab79cb980f11d1 #OB
