@@ -1,0 +1,17 @@
+# robots.txt for https://www.genexfinance.com/
+
+User-agent: *
+# Allow all bots to crawl main content
+Allow: /
+
+# Block access to unnecessary or private sections
+Disallow: /admin/
+Disallow: /login/
+
+# Allow access to essential assets
+Allow: /*.css$
+Allow: /*.js$
+Allow: /assets/
+
+# Sitemap location
+Sitemap: https://www.genexfinance.com/sitemap.xml

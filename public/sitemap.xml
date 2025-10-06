@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset 
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+    xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+  <!-- Home page -->
+  <url>
+    <loc>https://www.genexfinance.com/</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Blog listing / category page -->
+  <url>
+    <loc>https://www.genexfinance.com/blogs</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Individual blog post pages -->
+    <!-- Individual blog post pages -->
+  <url>
+    <loc>https://www.genexfinance.com/understanding-credit-scores-how-to-improve-your-credit-and-financial-health</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/navigating-tax-season-tips-for-maximizing-deductions-and-minimizing-liabilities</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/sustainable-investing-aligning-your-investments-with-your-values-and-impacting-change</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/the-importance-of-emergency-funds-how-to-prepare-for-unexpected-expenses</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/navigating-uncertainty-the-role-of-risk-management-in-insurance</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/demystifying-insurance-policies-understanding-coverage-terms-and-considerations</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/investment-101-a-beginners-guide-to-building-wealth</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/the-power-of-compound-interest-why-starting-early-matters</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/5-mistakes-every-new-investor-should-avoid</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/understanding-dividends-how-to-earn-passive-income-from-stocks</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/real-estate-vs-stock-market-which-investment-wins-in-the-long-run</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/global-investing-should-you-invest-beyond-your-home-country</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/is-gold-still-a-safe-haven-investment</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/how-to-build-a-diversified-investment-portfolio</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/how-sips-can-build-wealth-over-time</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/debt-management-101-smart-ways-to-pay-off-loans-faster</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/saving-for-your-childs-education-best-strategies-for-parents</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/tax-planning-strategies-to-maximize-your-income-and-savings</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/the-psychology-of-money-building-better-habits-for-wealth</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/how-to-set-realistic-financial-goals-and-actually-achieve-them</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/creating-a-monthly-budget-that-actually-works-for-you</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/the-role-of-financial-advisors-do-you-really-need-one</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/different-types-of-bank-accounts-which-one-is-right-for-you</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/how-online-banks-compare-to-traditional-banks-pros-and-cons</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/understanding-interest-rates-how-they-affect-your-savings-and-loans</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.genexfinance.com/mobile-banking-security-how-to-protect-your-accounts-from-fraud</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+
+  <!-- About page -->
+  <url>
+    <loc>https://www.genexfinance.com/about</loc>
+    <lastmod>2025-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+    <!-- Contact page -->
+  <url>
+    <loc>https://www.genexfinance.com/contact</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Cookie policy page -->
+  <url>
+    <loc>https://www.genexfinance.com/cookie-policy</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Privacy policy page -->
+  <url>
+    <loc>https://www.genexfinance.com/privacy-policy</loc>
+    <lastmod>2025-10-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+
+</urlset>
